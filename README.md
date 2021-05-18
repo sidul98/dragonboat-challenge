@@ -1,4 +1,4 @@
-## Dragonboat Code Challenge - Please Fork this repo
+## Dragonboat Code Challenge
 
 The main purpose of this challenge is to evaluate the ability to add functionality to an existing codebase following the pre-existent stack and design patterns.
 
