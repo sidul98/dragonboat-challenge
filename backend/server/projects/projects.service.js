@@ -5,7 +5,7 @@ import ObjectDoesNotExistError from "../utils/exceptions/ObjectDoesNotExistError
 
 export default class extends Service {
   getOne = (id) => {
-    const project = Projects.findOne({ id });
+    const project = Projects.findOne({ _id: id });
     if (!project) throw new ObjectDoesNotExistError();
 
     return project;

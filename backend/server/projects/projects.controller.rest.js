@@ -20,7 +20,7 @@ export default class extends RestControllerMixin(ProjectsController) {
 
     router.get("/:id", async (req, res, next) => {
       try {
-        const project = await this.getOne(+req.params.id);
+        const project = await this.getOne(req.params.id);
 
         return res.status(200).send(project);
       } catch (err) {
@@ -40,9 +40,9 @@ export default class extends RestControllerMixin(ProjectsController) {
 
     router.delete("/:id", async (req, res, next) => {
       try {
-        const a = await this.remove(req.params.id);
+        const deleted = await this.remove(req.params.id);
 
-        return res.status(200).send(a);
+        return res.status(200).send(deleted);
       } catch (err) {
         next(err);
       }
@@ -50,9 +50,9 @@ export default class extends RestControllerMixin(ProjectsController) {
 
     router.put("/:id", async (req, res, next) => {
       try {
-        const a = await this.edit(req.body);
+        const updated = await this.edit(req.body);
 
-        return res.status(200).send(a);
+        return res.status(200).send(updated);
       } catch (err) {
         next(err);
       }
