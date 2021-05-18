@@ -59,15 +59,23 @@ const ProjectsTable = ({ projects, isLoading, handleDelete, handleEdit }) => {
     ));
   }, []);
 
+  const table = useMemo(() => {
+    return (
+      projects.length > 0 && (
+        <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>{tableHead}</TableRow>
+          </TableHead>
+          <TableBody>{body}</TableBody>
+        </Table>
+      )
+    );
+  }, [projects, tableHead, body]);
+
   return (
     <>
       {isLoading ? <LinearProgress /> : <LoaderSpace />}
-      <Table aria-label="simple table">
-        <TableHead>
-          <TableRow>{tableHead}</TableRow>
-        </TableHead>
-        <TableBody>{body}</TableBody>
-      </Table>
+      {table}
     </>
   );
 };
@@ -79,7 +87,7 @@ const ButtonMarginRight = styled(Button)`
 `;
 
 const LoaderSpace = styled.div`
-  height: 10px;
+  height: 6px;
   width: 100%;
 `;
 

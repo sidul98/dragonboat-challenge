@@ -1,26 +1,26 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 const useAddProjectForm = () => {
   const [openAddProjectForm, setOpenAddProjectForm] = useState(false);
   const [openEditProjectForm, setOpenEditProjectForm] = useState(false);
   const [projectToEdit, setProjectToEdit] = useState(null);
 
-  const openAddForm = () => {
+  const openAddForm = useCallback(() => {
     setOpenAddProjectForm(true);
-  };
+  }, []);
 
-  const closeAddForm = () => {
+  const closeAddForm = useCallback(() => {
     setOpenAddProjectForm(false);
-  };
+  }, []);
 
-  const openEditForm = () => {
+  const openEditForm = useCallback(() => {
     setOpenEditProjectForm(true);
-  };
+  }, []);
 
-  const closeEditForm = () => {
+  const closeEditForm = useCallback(() => {
     setOpenEditProjectForm(false);
     setProjectToEdit(null);
-  };
+  }, []);
 
   return {
     openAddProjectForm,

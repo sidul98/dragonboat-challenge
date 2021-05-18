@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -27,17 +27,23 @@ const Component = ({ projects }) => {
 
   const isLoading = useSelector((state) => state.projects.isLoading);
 
-  const handleDelete = (id) => {
-    dispatch(async (dispatch) => {
-      await dispatch(deleteProjectAction(id));
-      await dispatch(fetchProjectsAction());
-    });
-  };
+  const handleDelete = useCallback(
+    (id) => {
+      dispatch(async (dispatch) => {
+        await dispatch(deleteProjectAction(id));
+        await dispatch(fetchProjectsAction());
+      });
+    },
+    [dispatch]
+  );
 
-  const handleEdit = (project) => {
-    setProjectToEdit(project);
-    openEditForm();
-  };
+  const handleEdit = useCallback(
+    (project) => {
+      setProjectToEdit(project);
+      openEditForm();
+    },
+    [openEditForm, setProjectToEdit]
+  );
 
   const dialogs = useMemo(() => {
     return (
