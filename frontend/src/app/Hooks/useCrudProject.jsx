@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 import {
@@ -20,7 +20,7 @@ const useCrudProject = (project) => {
     return moment(startDate).isAfter(moment(endDate));
   }, [startDate, endDate]);
 
-  const handleAddProject = () => {
+  const handleAddProject = useCallback(() => {
     if (datesAreInvalid) {
       setErrorMessage("Start Date must be before End Date.");
       return false;
@@ -31,30 +31,35 @@ const useCrudProject = (project) => {
       await dispatch(fetchProjectsAction());
     });
     return true;
-  };
+  }, [datesAreInvalid, dispatch, author, endDate, startDate, title]);
 
-  const handleEditProject = (id) => {
-    dispatch(async (dispatch) => {
-      await dispatch(editProjectAction(id, title, author, startDate, endDate));
-      await dispatch(fetchProjectsAction());
-    });
-  };
+  const handleEditProject = useCallback(
+    (id) => {
+      dispatch(async (dispatch) => {
+        await dispatch(
+          editProjectAction(id, title, author, startDate, endDate)
+        );
+        await dispatch(fetchProjectsAction());
+      });
+    },
+    [author, dispatch, endDate, startDate, title]
+  );
 
-  const handleStartDateChange = (date) => {
+  const handleStartDateChange = useCallback((date) => {
     setStartDate(date.format());
-  };
+  }, []);
 
-  const handleEndDateChange = (date) => {
+  const handleEndDateChange = useCallback((date) => {
     setEndDate(date.format());
-  };
+  }, []);
 
-  const handleTitleChange = (event) => {
+  const handleTitleChange = useCallback((event) => {
     setTitle(event.target.value);
-  };
+  }, []);
 
-  const handleAuthorChange = (event) => {
+  const handleAuthorChange = useCallback((event) => {
     setAuthor(event.target.value);
-  };
+  }, []);
 
   return {
     title,
