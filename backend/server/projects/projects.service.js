@@ -14,4 +14,16 @@ export default class extends Service {
   getAll = () => {
     return Projects.findAll();
   };
+
+  add = (project) => {
+    return Projects.addOne(project);
+  };
+
+  remove = (id) => {
+    return Projects.deleteOne(id);
+  };
+
+  edit = (project) => {
+    return Projects.editOne(project);
+  };
 }

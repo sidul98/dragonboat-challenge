@@ -12,4 +12,22 @@ export default class {
 
     return service.getAll();
   };
+
+  add = (project) => {
+    const service = new ProjectsService();
+
+    return service.add(project);
+  };
+
+  remove = (id) => {
+    const service = new ProjectsService();
+
+    return service.remove(id);
+  };
+
+  edit = (project) => {
+    const service = new ProjectsService();
+
+    return service.edit(project);
+  };
 }

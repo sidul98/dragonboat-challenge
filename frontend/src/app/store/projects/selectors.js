@@ -11,3 +11,7 @@ export const selectProject = createSelector(
   (_, id) => id,
   (byId, id) => byId[id]
 );
+
+export const selectIsLoading = createSelector(
+  (state) => state?.projects.isLoading
+);

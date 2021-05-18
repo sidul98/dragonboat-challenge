@@ -1,8 +1,16 @@
-import { FETCH_PROJECT, FETCH_PROJECTS } from "./types";
+import {
+  FETCH_PROJECT,
+  FETCH_PROJECTS,
+  REMOVE_PROJECT,
+  REMOVE_PROJECT_PENDING,
+  REMOVE_PROJECT_REJECTED,
+} from "./types";
 
 const initialState = {
   byId: {},
   ids: [],
+  removed: false,
+  isLoading: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -26,6 +34,27 @@ const reducer = (state = initialState, action) => {
           ...state.byId,
           [data.id]: data,
         },
+      };
+    }
+    case REMOVE_PROJECT_PENDING: {
+      return {
+        ...state,
+        removed: false,
+        isLoading: true,
+      };
+    }
+    case REMOVE_PROJECT: {
+      return {
+        ...state,
+        removed: true,
+        isLoading: false,
+      };
+    }
+    case REMOVE_PROJECT_REJECTED: {
+      return {
+        ...state,
+        removed: false,
+        isLoading: false,
       };
     }
     default: {

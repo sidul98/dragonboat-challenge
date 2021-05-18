@@ -3,10 +3,29 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-
+var mongoose = require("mongoose");
 var indexRouter = require("./routes/index");
-
 var app = express();
+
+var mongooseConnectionOptions = {
+  replset: { socketOptions: { connectTimeoutMS: 60000 } },
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+};
+
+mongoose.set("useCreateIndex", true);
+
+mongoose.connect("mongodb://localhost:27017/admin", mongooseConnectionOptions);
+
+mongoose.connection.on("connected", function () {
+  console.log("Successfully connected");
+});
+
+mongoose.connection.on("error", function (err) {
+  if (err) {
+    console.log("Error! In mongoose connection:" + err);
+  }
+});
 
 app.use(logger("dev"));
 app.use(express.json());

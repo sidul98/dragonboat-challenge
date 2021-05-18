@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
-
 import { useSelector, useDispatch } from "react-redux";
-
 import { fetchProjects as fetchProjectsAction } from "../../store/projects/actions";
 import { selectProjects } from "../../store/projects/selectors";
 
